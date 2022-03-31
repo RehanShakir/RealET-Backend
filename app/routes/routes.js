@@ -7,6 +7,7 @@ import {
   geographyRoutes,
   portfolioRoute,
   builderRoutes,
+  agentRoutes,
 } from ".";
 import {
   myProfile,
@@ -52,5 +53,7 @@ router.use("/geography", geographyRoutes);
 router.use("/admin", userAuth, isAdmin, adminRoutes);
 
 router.use("/builder", builderRoutes);
+
+router.use("/agent", agentRoutes);
 
 export default router;

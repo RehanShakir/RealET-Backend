@@ -10,8 +10,9 @@ const agentSchema = new Schema(
     },
     logo: { type: String },
     ads: [Types.ObjectId],
-    status: { type: Boolean, default: false },
+    status: { type: String },
   },
+
   { timestamps: true }
 );
 
