@@ -1,5 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
+import path from "path";
 import config from "./config";
 import database from "./database";
 import middlewares from "./middlewares";
@@ -17,9 +18,10 @@ middlewares(app);
 app.use("/api", apiRouter);
 
 //
-app.use("/", (req, res) => {
-  res.send(`<div><h1>Welcome To Real Et API</h1></div>`);
-});
+app.use("/", express.static(path.join(__dirname, "../client/build")));
+app.get("/*", (req, res) =>
+  res.sendFile(path.resolve(__dirname, "../client/build"))
+);
 
 // Connecting To Database and Running Express Server
 app.listen(config.PORT, () => {

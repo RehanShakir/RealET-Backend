@@ -26,6 +26,7 @@ const userSchema = new Schema(
       code: { type: Number },
       mode: { type: String },
     },
+    adCredit: { type: Number, default: 3 },
   },
   { timestamps: true, bufferTimeoutMS: 20000 }
 );

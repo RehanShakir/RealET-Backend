@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { uploadPhoto } from "../../libraries/multer";
 import { promisify } from "util";
 import { unlink } from "fs";
+import roles from "../../config/roles";
 /**
  * Updates Admin profile
  * @param {Request} req - request object
@@ -61,5 +62,37 @@ export const dashboardCounts = async (req, res) => {
     res
       .status(500)
       .json({ message: `INTERNAL SERVER ERROR: ${error.message}` });
+  }
+};
+/**
+ * User Role Update
+ * @param {Request} req - request object
+ * @param {Response} res - response object
+ */
+export const roleUpdate = async (req, res) => {
+  try {
+    const { role, status } = req?.body;
+    let adCredit = 3;
+    let userAds = await Consumer.findOne({
+      userId: req.params.userId,
+    });
+    await roles[role].findOneAndUpdate(
+      { userId: req.params.userId },
+      {
+        ads: userAds.ads,
+        status,
+      },
+      { new: true }
+    );
+    adCredit = role === "Agent" ? 10 : 3;
+
+    await User.findByIdAndUpdate(
+      { _id: req.params.userId },
+      { role, $inc: { adCredit } },
+      { new: true }
+    );
+    return res.status(200).json({ message: "Role updated successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };

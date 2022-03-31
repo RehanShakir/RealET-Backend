@@ -1,41 +1,15 @@
 import { Request, Response } from "express";
-import { Builder } from "../models";
+import { Agent } from "../models";
 import { uploadPhoto } from "../libraries/multer";
 import fs from "fs";
 import { promisify } from "util";
 
 /**
- * This Function allows to get all Builders
+ * This Function allows User become an Agent
  * @param {Request} req - request object
  * @param {Response} res - response object
  */
-export const getBuilders = async (req, res) => {
-  try {
-    let builders = await Builder.find();
-    return res.status(200).json({
-      data: builders,
-    });
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
-  }
-};
-export const getSingleBuilder = async (req, res) => {
-  try {
-    let builder = await Builder.find({ _id: req.params.id });
-    return res.status(200).json({
-      data: builder,
-    });
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
-  }
-};
-
-/**
- * This Function allows User become a builder
- * @param {Request} req - request object
- * @param {Response} res - response object
- */
-export const becomeABuilder = async (req, res) => {
+export const becomeAnAgent = async (req, res) => {
   const unlinkFile = promisify(fs.unlink);
 
   try {
@@ -50,7 +24,7 @@ export const becomeABuilder = async (req, res) => {
     const result = await uploadPhoto(logo);
     await unlinkFile(logo.path);
 
-    await Builder.create({
+    await Agent.create({
       userId: req.user._id,
       officeName,
       officeContact,

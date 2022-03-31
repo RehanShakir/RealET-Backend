@@ -10,7 +10,7 @@ const builderSchema = new Schema(
     },
     logo: { type: String },
     portfolio: [Types.ObjectId],
-    status: { type: Boolean },
+    status: { type: String },
     officeContact: { type: String },
   },
   { timestamps: true }
