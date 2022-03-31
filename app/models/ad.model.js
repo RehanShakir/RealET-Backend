@@ -7,7 +7,8 @@ const adSchema = new Schema(
     photos: [{ type: String }],
     virtualTour: [{}],
     description: { type: String },
-    type: { type: String, required: [true, "Property type is required"] },
+    type: { type: String, required: [true, "Property type is required"] }, //Plot or House or Plaza
+    typeFor: { type: String, required: [true, "Property type is required"] }, //Sale Or Rent
     propertySubType: {
       type: String,
       required: [true, "Property Sub type is required"], //Commercial, Resedentional,Agricultural
