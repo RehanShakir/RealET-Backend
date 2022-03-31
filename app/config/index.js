@@ -4,7 +4,7 @@ export default {
   PORT: process.env.PORT,
   MONGO_URI: process.env.MONGO_URI,
   environment: process.env.NODE_ENV,
-  JWT_EXPIRE_TIME: process.env.JWT_EXPIRE_TIME,
+  JWT_EXPIRE_TIME: process.env.JWT_EXPIRE_TIME || "7d",
   JWT_SECRET: process.env.JWT_SECRET,
   accessKeyId: process.env.AWS_ACCESS_KEY,
   secretAccessKey: process.env.AWS_SECRET_KEY,
