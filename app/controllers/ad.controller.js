@@ -18,6 +18,7 @@ export const postAd = async (req, res) => {
     const { title, description, type, propertySubType, info, city, location } =
       req?.body;
     let photos = [];
+    const passedInfo = JSON.parse(info);
     for (let i = 0; i < file.length; i++) {
       const result = await uploadPhoto(file[i]);
       photos.push(result.Location);
@@ -30,7 +31,7 @@ export const postAd = async (req, res) => {
       description,
       type,
       propertySubType,
-      info,
+      info: passedInfo,
       city,
       location,
     });
@@ -44,6 +45,7 @@ export const postAd = async (req, res) => {
       message: "Ad Posted Successfully",
     });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ message: error.message });
   }
 };
