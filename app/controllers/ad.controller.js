@@ -3,6 +3,7 @@ import fs from "fs";
 import { promisify } from "util";
 import { uploadPhoto } from "../libraries/multer";
 import { Ad } from "../models";
+import { ApiFeatures } from "../utils/ApiFeatures";
 import roles from "../config/roles";
 
 /**
@@ -123,9 +124,29 @@ export const featureProperty = async (req, res) => {
  */
 export const getAllAds = async (req, res) => {
   try {
-    let ads = await Ad.find(req.body?.query).select("-userId");
+    const { city, location, propertySubType } = req.query;
+
+    // ====== || Created A class with ability to paginate or sort || ======
+    let ads = await new ApiFeatures(
+      Ad.find({ city, location, propertySubType })
+        .select("-createdAt -updatedAt -__v -featuredInfo -deleteFlag")
+        .populate({
+          path: "userId",
+          select: "-otp -email -password -createdAt -updatedAt -__v",
+        }),
+      req.query
+    )
+      .sort()
+      .pagination().query;
+
+    const totalAdsFoundCount = await Ad.countDocuments({
+      city,
+      location,
+      propertySubType,
+    }).exec();
+
     return res.status(200).json({
-      count: ads.length,
+      count: totalAdsFoundCount,
       data: ads,
     });
   } catch (error) {
