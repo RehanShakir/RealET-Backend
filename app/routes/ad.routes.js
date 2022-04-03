@@ -50,7 +50,7 @@ router.put("/feature/:id", userAuth, isAdmin, featureProperty);
 /**
  *All Ads
  */
-router.post("/list", getAllAds);
+router.get("/list", getAllAds);
 
 /**
  * @param id - Id of Ad
