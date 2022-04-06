@@ -10,7 +10,7 @@ import { User, Agent, Consumer, Builder } from "../models";
 export const subtractAdCredit = async (req, res, next) => {
   try {
     if (req.user.adCredit === 0) {
-      return res.status(401).json({ message: "Ad Post Failed: 0 Ads Credit" });
+      return res.status(400).json({ message: "Ad Post Failed: 0 Ads Credit" });
     }
     await User.findByIdAndUpdate(
       { _id: req.user._id },
