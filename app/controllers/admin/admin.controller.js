@@ -1,4 +1,4 @@
-import { Agent, Consumer, User } from "../../models";
+import { Agent, Consumer, User, Ad } from "../../models";
 import { Request, Response } from "express";
 import { uploadPhoto } from "../../libraries/multer";
 import { promisify } from "util";
@@ -81,17 +81,46 @@ export const roleUpdate = async (req, res) => {
       {
         ads: userAds.ads,
         status,
-      },
-      { new: true }
+      }
     );
     adCredit = role === "Agent" ? 10 : 3;
 
     await User.findByIdAndUpdate(
       { _id: req.params.userId },
-      { role, $inc: { adCredit } },
-      { new: true }
+      { role, $inc: { adCredit } }
     );
     return res.status(200).json({ message: "Role updated successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+/**
+ * Get All Pending Ads
+ * @param {Request} req - request object
+ * @param {Response} res - response object
+ */
+export const getPendingAds = async (req, res) => {
+  try {
+    let pendingAds = await Ad.find({ status: "Pending" })
+      .select("-createdAt -updatedAt -__v")
+      .populate({ path: "userId" });
+    return res.status(200).json({ pendingAds: pendingAds });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+/**
+ * Approve Pending Ads
+ * @param {Request} req - request object
+ * @param {Response} res - response object
+ */
+export const approveAd = async (req, res) => {
+  try {
+    await Ad.findByIdAndUpdate(req.params.id, {
+      status: "Approved",
+    });
+    return res.status(200).json({ message: "Ad Approved" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

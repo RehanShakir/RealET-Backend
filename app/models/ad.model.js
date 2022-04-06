@@ -8,7 +8,10 @@ const adSchema = new Schema(
     virtualTour: [{}],
     description: { type: String },
     type: { type: String, required: [true, "Property type is required"] }, //Plot or House or Plaza
-    typeFor: { type: String, required: [true, "Property type is required"] }, //Sale Or Rent
+    propertyIntent: {
+      type: String,
+      required: [true, "Property type is required"],
+    }, //Sale Or Rent
     propertySubType: {
       type: String,
       required: [true, "Property Sub type is required"], //Commercial, Resedentional,Agricultural
@@ -35,6 +38,7 @@ const adSchema = new Schema(
       isFeatured: { type: Boolean, default: false },
       requested: { type: Boolean, default: false },
     },
+    status: { type: String, default: "Pending" },
   },
   { timestamps: true }
 );

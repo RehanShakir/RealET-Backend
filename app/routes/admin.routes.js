@@ -6,6 +6,8 @@ import {
   updateAdmin,
   dashboardCounts,
   roleUpdate,
+  getPendingAds,
+  approveAd,
 } from "../controllers/admin/admin.controller";
 
 const router = Router();
@@ -37,5 +39,16 @@ router.get("/dashboard-counts", dashboardCounts);
  * @param {string} userId
  */
 router.patch("/update-role/:userId", roleUpdate);
+
+/**
+ * Get All Pending Ads
+ */
+router.get("/pending-ads", getPendingAds);
+
+/**
+ * Approve Pending Ads
+ * @param {string} userId
+ */
+router.patch("/approve/:id", approveAd);
 
 export default router;
