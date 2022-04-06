@@ -12,18 +12,18 @@ const adSchema = new Schema(
       type: String,
       required: [true, "Property Sub type is required"], //Commercial, Resedentional,Agricultural
     },
+    propertyIntent: {
+      type: String,
+      enum: ["Sell", "Rent"],
+      default: "Sell",
+    },
     info: {
       price: { type: String, required: [true, "Price is required"] },
-      coords: { longitude: { type: Number }, latitude: { type: Number } },
-      societyName: {
-        type: String,
-        required: [true, "Society Name is required"],
-      },
+      coords: { lng: { type: Number }, ltd: { type: Number } },
       block: { type: String },
       sector: { type: String },
-      street: { type: String },
-      phase: { type: String },
       features: [{ type: String }],
+      utilities: [{ type: String }],
       size: { type: String, required: [true, "Property Size is required"] },
       unit: { type: String, required: [true, "Unit is required"] }, //Marla Kanal
     },
