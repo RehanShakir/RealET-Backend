@@ -137,7 +137,7 @@ export const getAllAds = async (req, res) => {
 
     // ====== || Created A class with ability to paginate or sort || ======
     let ads = await new ApiFeatures(
-      Ad.find({ city, location, propertySubType })
+      Ad.find({ city, location, propertySubType, status: "Approved" })
         .select("-createdAt -updatedAt -__v -featuredInfo -deleteFlag")
         .populate({
           path: "userId",
