@@ -10,7 +10,8 @@ const agentSchema = new Schema(
     },
     logo: { type: String },
     ads: [Types.ObjectId],
-    status: { type: String },
+    default: "Pending",
+    enum: ["Pending", "Approved", "Rejected"],
   },
 
   { timestamps: true }

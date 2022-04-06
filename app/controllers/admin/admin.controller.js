@@ -118,7 +118,7 @@ export const getPendingAds = async (req, res) => {
 export const approveAd = async (req, res) => {
   try {
     await Ad.findByIdAndUpdate(req.params.id, {
-      status: "Approved",
+      status: req.body.status,
     });
     return res.status(200).json({ message: "Ad Approved" });
   } catch (error) {

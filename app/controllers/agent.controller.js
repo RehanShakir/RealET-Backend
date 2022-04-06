@@ -13,12 +13,7 @@ export const becomeAnAgent = async (req, res) => {
   const unlinkFile = promisify(fs.unlink);
 
   try {
-    const {
-      officeName,
-      officeCoordinates,
-      officeContact,
-      status = "Unverified",
-    } = req?.body;
+    const { officeName, officeCoordinates, officeContact } = req?.body;
 
     const logo = req?.file;
     const result = await uploadPhoto(logo);
@@ -28,7 +23,6 @@ export const becomeAnAgent = async (req, res) => {
       userId: req.user._id,
       officeName,
       officeContact,
-      status,
       logo: result.Location,
     });
     return res.status(200).json({
