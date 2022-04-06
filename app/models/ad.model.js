@@ -40,8 +40,8 @@ const adSchema = new Schema(
     },
     status: {
       type: String,
-      default: "Pending",
-      enum: ["Pending", "Approved", "Flagged"],
+      default: "pending",
+      enum: ["pending", "approved", "flagged"],
     },
   },
   { timestamps: true }
