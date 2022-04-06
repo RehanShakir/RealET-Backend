@@ -38,7 +38,11 @@ const adSchema = new Schema(
       isFeatured: { type: Boolean, default: false },
       requested: { type: Boolean, default: false },
     },
-    status: { type: String, default: "Pending" },
+    status: {
+      type: String,
+      default: "Pending",
+      enum: ["Pending", "Approved", "Flagged"],
+    },
   },
   { timestamps: true }
 );
