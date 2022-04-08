@@ -7,6 +7,7 @@ import {
   dashboardCounts,
   roleUpdate,
   getPendingAds,
+  pendingAgents,
   approveAd,
 } from "../controllers/admin/admin.controller";
 
