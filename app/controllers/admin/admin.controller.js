@@ -125,3 +125,18 @@ export const approveAd = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+/**
+ * Get All Pending Agents
+ * @param {Request} req - request object
+ * @param {Response} res - response object
+ */
+export const pendingAgents = async (req, res) => {
+  try {
+    const pendingAgents = await Agent.find({ status: "Pending" }).populate({
+      path: "userId",
+    });
+    return res.status(200).json({ data: pendingAgents });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
