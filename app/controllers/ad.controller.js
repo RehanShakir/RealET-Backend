@@ -133,16 +133,23 @@ export const featureProperty = async (req, res) => {
  */
 export const getAllAds = async (req, res) => {
   try {
-    const { city, location, propertySubType } = req.query;
+    const { city, location, propertySubType, propertyIntent } = req.query;
 
     // ====== || Created A class with ability to paginate or sort || ======
     let ads = await new ApiFeatures(
-      Ad.find({ city, location, propertySubType, status: "Approved" })
+      Ad.find({
+        city,
+        location,
+        propertyIntent,
+        propertySubType,
+        status: "Approved",
+      })
         .select("-createdAt -updatedAt -__v -featuredInfo -deleteFlag")
         .populate({
           path: "userId",
           select: "-otp -email -password -createdAt -updatedAt -__v",
-        }),
+        })
+        .populate({ path: "city" }),
       req.query
     )
       .sort()
