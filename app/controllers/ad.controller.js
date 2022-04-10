@@ -16,8 +16,16 @@ export const postAd = async (req, res) => {
   const unlinkFile = promisify(fs.unlink);
   try {
     const file = req?.files;
-    const { title, description, type, propertySubType, info, city, location } =
-      req?.body;
+    const {
+      title,
+      description,
+      type,
+      propertySubType,
+      propertyIntent,
+      info,
+      city,
+      location,
+    } = req?.body;
     let photos = [];
     const passedInfo = JSON.parse(info);
     for (let i = 0; i < file.length; i++) {
@@ -31,6 +39,7 @@ export const postAd = async (req, res) => {
       photos,
       description,
       type,
+      propertyIntent,
       propertySubType,
       info: passedInfo,
       city,
@@ -124,16 +133,23 @@ export const featureProperty = async (req, res) => {
  */
 export const getAllAds = async (req, res) => {
   try {
-    const { city, location, propertySubType } = req.query;
+    const { city, location, propertySubType, propertyIntent } = req.query;
 
     // ====== || Created A class with ability to paginate or sort || ======
     let ads = await new ApiFeatures(
-      Ad.find({ city, location, propertySubType })
+      Ad.find({
+        city,
+        location,
+        propertyIntent,
+        propertySubType,
+        status: "Approved",
+      })
         .select("-createdAt -updatedAt -__v -featuredInfo -deleteFlag")
         .populate({
           path: "userId",
           select: "-otp -email -password -createdAt -updatedAt -__v",
-        }),
+        })
+        .populate({ path: "city" }),
       req.query
     )
       .sort()

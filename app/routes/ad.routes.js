@@ -11,6 +11,7 @@ import {
 import multer from "multer";
 import { agentOrConsumer, isAdmin } from "../middlewares/roles.middleware";
 import { userAuth } from "../middlewares/auth.middleware";
+import { subtractAdCredit } from "../middlewares/credits.middleware";
 
 const upload = multer({ dest: "uploads/" });
 
@@ -27,7 +28,14 @@ const router = Router();
  * province
  * location
  */
-router.post("/post", userAuth, agentOrConsumer, upload.array("photos"), postAd);
+router.post(
+  "/post",
+  userAuth,
+  agentOrConsumer,
+  upload.array("photos"),
+  subtractAdCredit,
+  postAd
+);
 
 /**
  * @headers

@@ -10,7 +10,11 @@ const builderSchema = new Schema(
     },
     logo: { type: String },
     portfolio: [Types.ObjectId],
-    status: { type: Boolean },
+    status: {
+      type: String,
+      default: "Pending",
+      enum: ["Pending", "Approved", "Rejected"],
+    },
     officeContact: { type: String },
   },
   { timestamps: true }
