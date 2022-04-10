@@ -148,8 +148,7 @@ export const getAllAds = async (req, res) => {
         .populate({
           path: "userId",
           select: "-otp -email -password -createdAt -updatedAt -__v",
-        })
-        .populate({ path: "city" }),
+        }),
       req.query
     )
       .sort()
