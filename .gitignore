@@ -1,6 +1,16 @@
+<<<<<<< HEAD
 .env
 /dist
 /node_modules
 /dist
 /uploads
 package-lock.json
+=======
+.env
+/dist
+/node_modules
+/dist
+/uploads
+package-lock.json
+yarn.lock
+>>>>>>> bbd79511dd5dc9ca6fd15633eb50df04d7d59681

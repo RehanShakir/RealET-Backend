@@ -69,9 +69,7 @@ export const myAds = async (req, res) => {
   try {
     const userId = req.user._id;
 
-    console.log(req.query)
-
-    const ads = await Ad.find({ userId,status:req?.query?.status });
+    const ads = await Ad.find({ userId, status: req?.query?.status });
     res.status(200).json({ data: ads, count: ads.length });
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -135,11 +133,17 @@ export const featureProperty = async (req, res) => {
  */
 export const getAllAds = async (req, res) => {
   try {
-    const { city, location, propertySubType } = req.query;
+    const { city, location, propertySubType, propertyIntent } = req.query;
 
     // ====== || Created A class with ability to paginate or sort || ======
     let ads = await new ApiFeatures(
-      Ad.find({ city, location, propertySubType, status: "Approved" })
+      Ad.find({
+        city,
+        location,
+        propertyIntent,
+        propertySubType,
+        status: "Approved",
+      })
         .select("-createdAt -updatedAt -__v -featuredInfo -deleteFlag")
         .populate({
           path: "userId",
@@ -202,4 +206,3 @@ export const editAd = async (req, res) => {
     });
   }
 };
-

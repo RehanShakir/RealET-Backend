@@ -5,13 +5,12 @@ export class ApiFeatures {
   }
 
   sort() {
-    if (this.queryString.sortBy && this.queryString.sortIn) {
+    if (this.queryString.sortBy) {
       const sortBy = this.queryString.sortBy.split(",").join(" ");
-      this.query = this.query.sort({ [sortBy]: this.queryString.sortIn });
+      this.query = this.query.sort(sortBy);
+    } else {
+      this.query = this.query.sort("createdAt");
     }
-    // else {
-    //   this.query = this.query.sort("-createdAt");
-    // }
     return this;
   }
 

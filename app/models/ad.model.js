@@ -18,8 +18,8 @@ const adSchema = new Schema(
     },
     propertyIntent: {
       type: String,
-      enum: ["Sell", "Rent"],
-      default: "Sell",
+      enum: ["sell", "rent"],
+      default: "sell",
     },
     info: {
       price: { type: String, required: [true, "Price is required"] },
@@ -31,8 +31,8 @@ const adSchema = new Schema(
       size: { type: String, required: [true, "Property Size is required"] },
       unit: { type: String, required: [true, "Unit is required"] }, //Marla Kanal
     },
-    city: { type: Number, ref: "City" },
-    location: { type: Number, ref: "Location" },
+    city: { type: Number, ref: "Cities", field: "key" },
+    location: { type: Number, ref: "locations" },
     deleteFlag: { type: Boolean, default: false },
     featuredInfo: {
       isFeatured: { type: Boolean, default: false },
@@ -40,8 +40,8 @@ const adSchema = new Schema(
     },
     status: {
       type: String,
-      default: "Pending",
-      enum: ["Pending", "Approved", "Flagged"],
+      default: "pending",
+      enum: ["pending", "approved", "flagged"],
     },
   },
   { timestamps: true }
