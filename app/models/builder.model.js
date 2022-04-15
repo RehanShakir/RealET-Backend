@@ -13,7 +13,7 @@ const builderSchema = new Schema(
     status: {
       type: String,
       default: "Pending",
-      enum: ["Pending", "Approved", "Rejected"],
+      enum: ["Pending", "Verified", "Rejected"],
     },
     officeContact: { type: String },
   },

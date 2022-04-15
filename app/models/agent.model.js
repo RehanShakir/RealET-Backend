@@ -13,7 +13,7 @@ const agentSchema = new Schema(
     status: {
       type: String,
       default: "Pending",
-      enum: ["Pending", "Approved", "Rejected"],
+      enum: ["Pending", "Verified", "Rejected"],
     },
   },
 
